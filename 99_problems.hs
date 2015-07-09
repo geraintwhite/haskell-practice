@@ -180,5 +180,11 @@ gcd' x y = abs $ gcd' y $ x `rem` y
 coprime :: Int -> Int -> Bool
 coprime x y = gcd' x y == 1
 
+-- Problem 34
+totient :: Int -> Int
+totient x = length $ filter (==True) [coprime n x | n <- [1..x]]
 
+-- Problem 35
+primeFactors :: Int -> [Int]
+primeFactors x = [n | n <- [2..x-1], isPrime n, x `mod` n == 0]
 
