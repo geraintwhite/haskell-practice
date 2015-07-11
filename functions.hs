@@ -36,3 +36,7 @@ decode n = encode $ negate n
 
 fibo = 0 : 1 : zipWith (+) fibo (tail fibo)
 
+factorial :: Int -> Int
+factorial x
+    | x == 1    = x
+    | otherwise = x * factorial (x-1)
