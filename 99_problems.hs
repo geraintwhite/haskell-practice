@@ -188,3 +188,10 @@ totient x = length $ filter (==True) [coprime n x | n <- [1..x]]
 primeFactors :: Int -> [Int]
 primeFactors x = [n | n <- [2..x-1], isPrime n, x `mod` n == 0]
 
+-- Problem 36
+
+
+-- Problem 39
+primes :: Int -> Int -> [Int]
+primes a b = [x | x <- [a..b], isPrime x]
+
