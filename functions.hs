@@ -1,6 +1,5 @@
 import Data.Char
 
-
 zip' :: [a] -> [b] -> [(a, b)]
 zip' _ [] = []
 zip' [] _ = []
@@ -17,7 +16,7 @@ collatz n
 	| even n = n : collatz (div n 2)
 	| odd n  = n : collatz (n*3 + 1)
 
-intersperse' :: a -> [a] -> [a] 
+intersperse' :: a -> [a] -> [a]
 intersperse' _ [x] = [x]
 intersperse' s (x:xs) = x : s : (intersperse' s xs)
 
@@ -40,3 +39,6 @@ factorial :: Int -> Int
 factorial x
     | x == 1    = x
     | otherwise = x * factorial (x-1)
+
+isPrime :: Integral a => a -> Bool
+isPrime n = null [ x | x <- [2..floor $ sqrt $ fromIntegral n], n `mod` x == 0 ]
