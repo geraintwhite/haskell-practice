@@ -1,7 +1,7 @@
 -- https://wiki.haskell.org/99_questions
 
 import System.Random
-import Data.List hiding (group)
+import Data.List
 import Data.Function
 
 -- Problem 1
@@ -156,9 +156,9 @@ combination n (x:xs) = ts ++ ds
     ts = [ (x:ys,zs) | (ys,zs) <- combination (n-1) xs ]
     ds = [ (ys,x:zs) | (ys,zs) <- combination n xs ]
 
-group :: [Int] -> [a] -> [[[a]]]
-group [] _ = [[]]
-group (n:ns) xs = [ g:gs | (g,rs) <- combination n xs, gs <- group ns rs ]
+group' :: [Int] -> [a] -> [[[a]]]
+group' [] _ = [[]]
+group' (n:ns) xs = [ g:gs | (g,rs) <- combination n xs, gs <- group' ns rs ]
 
 -- Problem 28
 lsort :: [[a]] -> [[a]]
@@ -186,10 +186,21 @@ totient x = length $ filter (==True) [coprime n x | n <- [1..x]]
 
 -- Problem 35
 primeFactors :: Int -> [Int]
-primeFactors x = [n | n <- [2..x-1], isPrime n, x `mod` n == 0]
+primeFactors x = f x 2
+  where f 1 _ = []
+        f x n
+          | n * n > x      = [x]
+          | x `mod` n == 0 = n : f (x `div` n) n
+          | otherwise      = f x (n + 1)
 
 -- Problem 36
+primeFactorsM :: Int -> [(Int, Int)]
+primeFactorsM x = map (\xs->(head xs, length xs)) . group . sort . primeFactors $ x
 
+-- Problem 37
+phi :: Int -> Int
+phi x = foldr f 1 (primeFactorsM x)
+  where f (a, b) n = n * (a - 1) * a ^ (b - 1)
 
 -- Problem 39
 primes :: Int -> Int -> [Int]
