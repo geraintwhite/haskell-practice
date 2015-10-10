@@ -42,3 +42,7 @@ factorial x
 
 isPrime :: Integral a => a -> Bool
 isPrime n = null [ x | x <- [2..floor $ sqrt $ fromIntegral n], n `mod` x == 0 ]
+
+sort :: Ord a => [a] -> [a]
+sort [] = []
+sort (x:xs) = sort [y | y <- xs, y <= x] ++ [x] ++ sort [y | y <- xs, y > x]
