@@ -217,3 +217,47 @@ goldbachList a b = map goldbach $ filter even [a..b]
 
 goldbachList' :: Int -> Int -> Int -> [(Int, Int)]
 goldbachList' a b c = filter (\(x, y) -> x > c && y > c) (goldbachList a b)
+
+-- Problem 46
+not' :: Bool -> Bool
+not' True = False
+not' False = True
+
+and' :: Bool -> Bool -> Bool
+and' True True = True
+and' _ _ = False
+
+or' :: Bool -> Bool -> Bool
+or' False False = False
+or' _ _ = True
+
+nand' :: Bool -> Bool -> Bool
+nand' a b = not' $ and' a b
+
+nor' :: Bool -> Bool -> Bool
+nor' a b = not' $ or' a b
+
+xor' :: Bool -> Bool -> Bool
+xor' True False = True
+xor' False True = True
+xor' _ _ = False
+
+impl' :: Bool -> Bool -> Bool
+impl' a b = or' b $ not' a
+
+equ' :: Bool -> Bool -> Bool
+equ' True True = True
+equ' False False = True
+equ' _ _ = False
+
+--equ'      = (==)
+--and'      = (&&)
+--or'       = (||)
+--nand' a b = not   $ and' a b
+--nor'  a b = not   $ or'  a b
+--xor'  a b = not   $ equ' a b
+--impl' a b = or' b $ not a
+
+table :: (Bool -> Bool -> Bool) -> IO ()
+table f = mapM_ putStrLn [line a b | a <- [True, False], b <- [True, False]]
+  where line a b = show a ++ " " ++ show b ++ " " ++ show (f a b)
