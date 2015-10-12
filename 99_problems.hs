@@ -206,3 +206,14 @@ phi x = foldr f 1 (primeFactorsM x)
 primes :: Int -> Int -> [Int]
 primes a b = [x | x <- [a..b], isPrime x]
 
+-- Problem 40
+goldbach :: Int -> (Int, Int)
+goldbach n = head [(x, y) | x <- ps, y <- ps, x + y == n]
+  where ps = primes 2 (n - 2)
+
+-- Problem 41
+goldbachList :: Int -> Int -> [(Int, Int)]
+goldbachList a b = map goldbach $ filter even [a..b]
+
+goldbachList' :: Int -> Int -> Int -> [(Int, Int)]
+goldbachList' a b c = filter (\(x, y) -> x > c && y > c) (goldbachList a b)
