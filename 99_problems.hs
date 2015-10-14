@@ -263,13 +263,12 @@ table f = mapM_ putStrLn [line a b | a <- [True, False], b <- [True, False]]
   where line a b = show a ++ " " ++ show b ++ " " ++ show (f a b)
 
 -- Problem 48
-
+infixl 3 `equ'`
 infixl 4 `or'`
 infixl 4 `nor'`
 infixl 5 `xor'`
 infixl 6 `and'`
 infixl 6 `nand'`
-infixl 3 `equ'`
 
 truths :: Int -> [[Bool]]
 truths 0 = [[]]
@@ -278,3 +277,8 @@ truths n = [True,False] >>= \b -> map (b :) (truths (n - 1))
 tablen :: Int -> ([Bool] -> Bool) -> IO ()
 tablen n f = mapM_ putStrLn [line a ++ "=> " ++ show (f a) | a <- truths n]
   where line = unwords . map (\x -> show x ++ (if x then "  " else " "))
+
+-- Problem 49
+gray :: Int -> [String]
+gray 0 = [""]
+gray n = foldr (\x xs -> ("0" ++ x) : ("1" ++ x) : xs) [] $ gray (n - 1)
