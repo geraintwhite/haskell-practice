@@ -43,3 +43,11 @@ problem9 = [ x*y*z | x <- [1..n9], y <- [x..n9], z <- [y..n9], x^2 + y^2 == z^2,
 
 -- Problem 10
 problem10 = sum $ takeWhile (<2000000) primes
+
+-- Problem 11
+
+
+-- Problem 12
+triangle = scanl (+) 1 [2..]
+factors n = [x | x <- [1..n], mod n x == 0]
+problem12 = takeWhile (\x -> (length $ factors x) < 500) triangle
